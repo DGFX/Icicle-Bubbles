@@ -37,23 +37,13 @@ function init(renderer) {
 
     var rawShaderPrefix = 'precision ' + renderer.capabilities.precision + ' float;\n';
 
-    var gl = _renderer.getContext();
-    if ( !gl.getParameter(gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS) ) {
-        alert( 'No support for vertex shader textures!' );
-        return;
-    }
-    if ( !gl.getExtension( 'OES_texture_float' )) {
-        alert( 'No OES_texture_float support for float textures!' );
-        return;
-    }
-
     _scene = new THREE.Scene();
     _camera = new THREE.Camera();
     _camera.position.z = 1;
 
     _copyShader = new THREE.RawShaderMaterial({
         uniforms: {
-            resolution: { type: 'v2', value: new THREE.Vector2( TEXTURE_WIDTH, TEXTURE_HEIGHT ) },
+            resolution: { type: 'v2', value: new THREE.Vector2(TEXTURE_WIDTH, TEXTURE_HEIGHT) },
             texture: { type: 't', value: undef }
         },
         vertexShader: rawShaderPrefix + shaderParse(glslify('../glsl/quad.vert')),
@@ -62,7 +52,7 @@ function init(renderer) {
 
     _positionShader = new THREE.RawShaderMaterial({
         uniforms: {
-            resolution: { type: 'v2', value: new THREE.Vector2( TEXTURE_WIDTH, TEXTURE_HEIGHT ) },
+            resolution: { type: 'v2', value: new THREE.Vector2(TEXTURE_WIDTH, TEXTURE_HEIGHT) },
             texturePosition: { type: 't', value: undef },
             textureDefaultPosition: { type: 't', value: undef },
             mouse3d: { type: 'v3', value: new THREE.Vector3() },
@@ -83,8 +73,8 @@ function init(renderer) {
         depthTest: false
     });
 
-    _mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2, 2 ), _copyShader );
-    _scene.add( _mesh );
+    _mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(2, 2), _copyShader);
+    _scene.add(_mesh);
 
     _positionRenderTarget = new THREE.WebGLRenderTarget(TEXTURE_WIDTH, TEXTURE_HEIGHT, {
         wrapS: THREE.ClampToEdgeWrapping,
@@ -106,7 +96,7 @@ function init(renderer) {
 function _copyTexture(input, output) {
     _mesh.material = _copyShader;
     _copyShader.uniforms.texture.value = input;
-    _renderer.render( _scene, _camera, output );
+    _renderer.render(_scene, _camera, output);
 }
 
 function _updatePosition(dt) {
@@ -121,14 +111,14 @@ function _updatePosition(dt) {
     _positionShader.uniforms.texturePosition.value = _positionRenderTarget2;
     _positionShader.uniforms.deltaDistance.value = settings.deltaDistance;
     _positionShader.uniforms.time.value += dt * 0.001;
-    _renderer.render( _scene, _camera, _positionRenderTarget );
+    _renderer.render(_scene, _camera, _positionRenderTarget);
 }
 
 function _createPositionTexture() {
-    var positions = new Float32Array( AMOUNT * 4 );
+    var positions = new Float32Array(AMOUNT * 4);
     var i4;
     var r, phi, theta;
-    for(var i = 0; i < AMOUNT; i++) {
+    for (var i = 0; i < AMOUNT; i++) {
         i4 = i * 4;
         r = (0.5 + Math.random() * 0.5) * 75;
         phi = (Math.random() - 0.5) * Math.PI;
@@ -138,7 +128,7 @@ function _createPositionTexture() {
         positions[i4 + 2] = r * Math.sin(theta) * Math.cos(phi);
         positions[i4 + 3] = Math.random();
     }
-    var texture = new THREE.DataTexture( positions, TEXTURE_WIDTH, TEXTURE_HEIGHT, THREE.RGBAFormat, THREE.FloatType );
+    var texture = new THREE.DataTexture(positions, TEXTURE_WIDTH, TEXTURE_HEIGHT, THREE.RGBAFormat, THREE.FloatType);
     texture.minFilter = THREE.NearestFilter;
     texture.magFilter = THREE.NearestFilter;
     texture.needsUpdate = true;
@@ -154,7 +144,7 @@ function update(dt) {
 
     dt = dt * settings.speed;
 
-    if(settings.speed || settings.dieSpeed) {
+    if (settings.speed || settings.dieSpeed) {
 
         var autoClearColor = _renderer.autoClearColor;
         var clearColor = _renderer.getClearColor().getHex();

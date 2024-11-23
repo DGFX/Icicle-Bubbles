@@ -1,9 +1,7 @@
 uniform vec2 uResolution;
-uniform vec3 uFogColor;
 uniform float uInset;
 uniform float uWashout;
 
-uniform sampler2D uDepth;
 uniform sampler2D uAdditive;
 uniform sampler2D uSphereMap;
 varying vec2 vUv;
@@ -36,14 +34,9 @@ void main() {
     outer.xyz = normalize(outer.xyz);
     vec4 blend =  texture2D( uSphereMap, outer.xy * 0.5 + 0.5 );
 
-    float centerZ = texture2D( uDepth, gl_FragCoord.xy  / uResolution ).a;
-    centerZ = max(0.0, centerZ - 120.0);
-
-    float fogFactor = whiteCompliment( exp2( - 0.0015  * 0.0015     * centerZ *centerZ * LOG2 ) );
-
     color.xyz = min(vec3(1.0), mix(blendOverlay(color.xyz,  blend.xyz), max(color.xyz,  blend.xyz), uWashout));
 
-    gl_FragColor = min(vec4(1.0), vec4(color.xyz, alpha * (1.0 - fogFactor )));
+    gl_FragColor = min(vec4(1.0), vec4(color.xyz, alpha));
 
 }
 

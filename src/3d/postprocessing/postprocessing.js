@@ -35,18 +35,14 @@ function init(renderer, scene, camera) {
     fxaa.init();
     effectComposer.queue.push(fxaa);
 
-    dof.init();
-    effectComposer.queue.push(dof);
+    // dof.init();
+    // effectComposer.queue.push(dof);
 
-    motionBlur.init();
-    effectComposer.queue.push(motionBlur);
+    // motionBlur.init();
+    // effectComposer.queue.push(motionBlur);
 
-    bloom.init();
-    effectComposer.queue.push(bloom);
-
-    vignette.init();
-    effectComposer.queue.push(vignette);
-
+    // bloom.init();
+    // effectComposer.queue.push(bloom);
 }
 
 function resize(width, height) {
@@ -58,7 +54,7 @@ function render(dt) {
 
     effectComposer.renderQueue(dt);
 
-    if(exports.visualizeTarget) {
+    if (exports.visualizeTarget) {
         fboHelper.copy(exports.visualizeTarget);
     }
 
