@@ -23,7 +23,7 @@ exports.setColorState = setColorState;
 function init(renderer) {
 
     // ensure it wont initialized twice
-    if(_renderer) return;
+    if (_renderer) return;
 
     _renderer = renderer;
 
@@ -41,26 +41,26 @@ function init(renderer) {
         fragmentShader: rawShaderPrefix + glslify('./quad.frag')
     });
 
-    _mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2, 2 ), copyMaterial );
-    _scene.add( _mesh );
+    _mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(2, 2), copyMaterial);
+    _scene.add(_mesh);
 
 }
 
 function copy(inputTexture, ouputTexture) {
     _mesh.material = copyMaterial;
     copyMaterial.uniforms.u_texture.value = inputTexture;
-    if(ouputTexture) {
-        _renderer.render( _scene, _camera, ouputTexture );
+    if (ouputTexture) {
+        _renderer.render(_scene, _camera, ouputTexture);
     } else {
-        _renderer.render( _scene, _camera );
+        _renderer.render(_scene, _camera);
     }
 }
 function render(material, renderTarget) {
     _mesh.material = material;
-    if(renderTarget) {
-        _renderer.render( _scene, _camera, renderTarget );
+    if (renderTarget) {
+        _renderer.render(_scene, _camera, renderTarget);
     } else {
-        _renderer.render( _scene, _camera );
+        _renderer.render(_scene, _camera);
     }
 }
 
@@ -70,8 +70,6 @@ function createRenderTarget(width, height, format, type, minFilter, magFilter) {
         type: type || THREE.UnsignedByteType,
         minFilter: minFilter || THREE.LinearFilter,
         magFilter: magFilter || THREE.LinearFilter,
-        // depthBuffer: false,
-        // stencilBuffer: false
     });
 
     renderTarget.texture.generateMipMaps = false;
@@ -81,9 +79,9 @@ function createRenderTarget(width, height, format, type, minFilter, magFilter) {
 
 function getColorState() {
     return {
-        autoClearColor : _renderer.autoClearColor,
-        clearColor : _renderer.getClearColor().getHex(),
-        clearAlpha : _renderer.getClearAlpha()
+        autoClearColor: _renderer.autoClearColor,
+        clearColor: _renderer.getClearColor().getHex(),
+        clearAlpha: _renderer.getClearAlpha()
     };
 }
 
