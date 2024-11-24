@@ -1,19 +1,19 @@
 var parse = require('mout/queryString/parse');
 var keys = require('mout/object/keys');
-var query = exports.query = parse(window.location.href.replace('#','?'));
+var query = exports.query = parse(window.location.href.replace('#', '?'));
 
 exports.useStats = false;
 
 var amountMap = {
-    '4k' : [64, 64],
-    '8k' : [128, 64],
-    '16k' : [128, 128],
-    '32k' : [256, 128],
-    '65k' : [256, 256],
-    '131k' : [512, 256],
-    '252k' : [512, 512],
-    '524k' : [1024, 512],
-    '1m' : [1024, 1024]
+    '4k': [64, 64],
+    '8k': [128, 64],
+    '16k': [128, 128],
+    '32k': [256, 128],
+    '65k': [256, 256],
+    '131k': [512, 256],
+    '252k': [512, 512],
+    '524k': [1024, 512],
+    '1m': [1024, 1024]
 };
 
 exports.amountList = keys(amountMap);
@@ -54,7 +54,7 @@ exports.bloom = false;
 exports.vignette = true;
 exports.vignetteMultiplier = 0.8;
 
-exports.bgColor = '#3c4a4a';
+exports.bgColor = '#111';
 
 exports.bgm = true;
-exports.matcap = 'metal';
+exports.matcap = 'default';

@@ -157,7 +157,6 @@ function update(dt) {
         _positionShader.uniforms.radius.value = settings.radius;
         _positionShader.uniforms.attraction.value = settings.attraction * settings.speed * deltaRatio;
         _positionShader.uniforms.speed.value = settings.speed * deltaRatio;
-        _positionShader.uniforms.initAnimation.value = exports.initAnimation;
 
         _positionShader.uniforms.mouse3d.value.copy(settings.mouse3d);
         _updatePosition(dt);
